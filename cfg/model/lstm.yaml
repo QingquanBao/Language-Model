@@ -1,0 +1,14 @@
+name: LSTM
+emsize: 200     #help='size of word embeddings')
+nhid: 200       #help='number of hidden units per layer')
+nlayers: 2      #help='number of layers')
+clip: 0.25      #help='gradient clipping')
+dropout: 0.2    #help='dropout applied to layers (0 = no dropout)')
+tied: True      #help='tie the word embedding and softmax weights')
+
+lr: 20          #help='initial learning rate')
+epochs: 40      #help='upper epoch limit')
+batch_size: 20
+bptt: 35        #help='sequence length')
+                    
+                    
