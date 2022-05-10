@@ -1,0 +1,14 @@
+name: GRU
+emsize: 1300     #help='size of word embeddings')
+nhid: 1300       #help='number of hidden units per layer')
+nlayers: 3      #help='number of layers')
+clip: 0.25      #help='gradient clipping')
+dropout: 0.40   #help='dropout applied to layers (0 = no dropout)')
+tied: True      #help='tie the word embedding and softmax weights')
+
+lr: 20          #help='initial learning rate')
+epochs: 40      #help='upper epoch limit')
+batch_size: 40
+bptt: 50        #help='sequence length')
+                    
+                    

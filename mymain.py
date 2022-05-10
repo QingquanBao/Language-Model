@@ -14,11 +14,10 @@ import logging
 from torch.utils.tensorboard import SummaryWriter
 
 
-step = 0
 
 @hydra.main(config_path="./cfg", config_name='config')
 def main(cfg):
-
+    step = 0
     orig_cwd = hydra.utils.get_original_cwd()
     
     curr_cwd = os.getcwd()
@@ -100,9 +99,8 @@ def main(cfg):
         return total_loss / (len(data_source) - 1)
 
 
-    def train():
+    def train(step):
         # Turn on training mode which enables dropout.
-        global step
         model.train()
         total_loss = 0.
         start_time = time.time()
@@ -186,7 +184,7 @@ def main(cfg):
 
     ntokens = len(corpus.dictionary)
     if cfg.model.name == 'Transformer':
-        model = MODEL.TransformerModel(ntokens, cfg.model.emsize, cfg.model.nhead, cfg.model.nhid, cfg.model.nlayers, cfg.model.dropout).to(device)
+        model = MODEL.TransformerModel(ntokens, cfg.model.emsize, cfg.model.nhead, cfg.model.nhid, cfg.model.nlayers, cfg.model.dropout, cfg.model.tied).to(device)
     else:
         model = MODEL.RNNModel(cfg.model.name, ntokens, cfg.model.emsize, cfg.model.nhid, cfg.model.nlayers, cfg.model.dropout, cfg.model.tied).to(device)
 
@@ -205,7 +203,7 @@ def main(cfg):
     try:
         for epoch in range(1, cfg.model.epochs+1):
             epoch_start_time = time.time()
-            train()
+            train(step)
             val_loss = evaluate(val_data)
             logging.info('-' * 89)
             logging.info('| end of epoch {:3d} | time: {:5.2f}s | valid loss {:5.2f} | '
@@ -224,7 +222,7 @@ def main(cfg):
                 best_val_loss = val_loss
             else:
                 # Anneal the learning rate if no improvement has been seen in the validation dataset.
-                lr /= 4.0
+                lr /= 3.0
     except KeyboardInterrupt:
         logging.info('-' * 89)
         logging.info('Exiting from training early')

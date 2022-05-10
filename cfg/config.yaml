@@ -1,6 +1,7 @@
 defaults:
   - _self_
   - model: lstm  # help='type of network (RNN_TANH, RNN_RELU, LSTM, GRU, Transformer)')
+  - hydra/launcher: joblib
 
 
 data: ./data/gigaspeech
@@ -9,7 +10,7 @@ seed: 1111
 cuda: True
 log_interval: 500 #help='report interval')
 save: model.pt    #help='path to save the final model')
-onnx_export:      #help='path to export the final model in onnx format')
+onnx_export: ''   #help='path to export the final model in onnx format')
 
 dry_run: False    #help='verify the code and the model')
                     
