@@ -1,4 +1,16 @@
-# Word-level Language Modeling using RNN and Transformer
+## How to use this repo
+We use `hydra` to manage the configuration. To train our best model LSTM, 
+```
+python main.py -m model=lstm
+```
+or just run our script
+```
+bash run.sh
+```
+
+To see how to change the configuration in the command line, please check `hydra` [docs](https://hydra.cc/docs/intro/).
+
+## Word-level Language Modeling using RNN and Transformer (Deprecated)
 
 This example trains a multi-layer RNN (Elman, GRU, or LSTM) or Transformer on a language modeling task. By default, the training script uses the Wikitext-2 dataset, provided.
 The trained model can then be used by the generate script to generate new text.
